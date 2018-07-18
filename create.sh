@@ -5,7 +5,11 @@ set -e
 #set -o pipefail
 
 VM="demo-ubuntu"
-BOX=~/.vagrant.d/boxes/ubuntu-VAGRANTSLASH-xenial64/20180620.0.0/virtualbox/box.ovf
+#BOX=~/.vagrant.d/boxes/ubuntu-VAGRANTSLASH-xenial64/20180620.0.0/virtualbox/box.ovf
+listOfBoxes=(~/.vagrant.d/boxes/ubuntu-VAGRANTSLASH-xenial64/*/virtualbox/box.ovf)
+BOX=${listOfBoxes[0]}
+
+echo "Found $BOX"
 
 IPGATEWAY=192.168.33.1
 SSH_PORT=2002
