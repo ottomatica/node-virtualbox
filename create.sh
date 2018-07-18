@@ -38,14 +38,16 @@ VBOXNET=vboxnet0
 # Status:          Down
 # VBoxNetworkName: HostInterfaceNetworking-vboxnet7
 
-VBoxManage modifyvm ${VM} --hostonlyadapter2 ${VBOXNET}
-VBoxManage modifyvm ${VM} --nic2 hostonly
-
-#VBoxManage modifyvm ${VM} --nictype1 virtio
-VBoxManage modifyvm ${VM} --nictype2 virtio
-
+# NIC 1 (NAT)
+VBoxManage modifyvm ${VM} --nic1 nat
+VBoxManage modifyvm ${VM} --nictype1 virtio
 # Use port forwarding to enable ssh.
 #VBoxManage modifyvm ${VM} --natpf1 delete "guestssh" || echo "not here"
 VBoxManage modifyvm ${VM} --natpf1 "guestssh,tcp,,${SSH_PORT},,22"
+
+# NIC 2 (HOST-ONLY IP)
+VBoxManage modifyvm ${VM} --hostonlyadapter2 ${VBOXNET}
+VBoxManage modifyvm ${VM} --nic2 hostonly
+VBoxManage modifyvm ${VM} --nictype2 virtio
 
 VBoxManage startvm ${VM} --type headless
