@@ -13,7 +13,7 @@ Example location of box location: ~/.vagrant.d/boxes/ubuntu-VAGRANTSLASH-xenial6
 Create a new VM in VirtualBox (reference bash script).
 
 ```
-./check.sh
+./create.sh
 ```
 
 Ssh into instance.
