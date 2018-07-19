@@ -2,18 +2,31 @@
  * @module virtualbox
  */
 
-const Bluebird        = require('bluebird');
-
 const VBoxProvider = require('./lib/VBoxProvider');
 
-module.exports = async function(options = {}) {
-
-    // Set default language
-    //options.language = options.language || 'python';
+module.exports = async function (options = {}) {
     let provider = new VBoxProvider();
-    await provider.provision(options.vmname, options.ovf, options.verbose);
-    await provider.customize(options.vmname, undefined, undefined, options.verbose);
-    await provider.start(options.vmname, options.verbose);
+
+    if(options.provision) {
+        try {
+            await provider.check(options.ovf, options.vmname);
+            await provider.provision(options.vmname, options.ovf, options.verbose);
+            await provider.customize(options.vmname, undefined, undefined, options.verbose);
+            await provider.start(options.vmname, options.verbose);
+            // await provider.postSetup('192.168.33.132', '~/.vagrant.d/insecure_private_key', options.verbose);
+        } catch (error) {
+            console.error('=> exec error:', error);
+        }
+    }
+    
+    if(options.list)
+        console.log(await provider.list());
+
+    if(options.check)
+        console.log(await provider.postSetup());
+
+    if(options.start)
+        await provider.start(options.vmname, options.verbose);
     //return Bluebird.fromCallback(cb => generator.generate(JSON.stringify(data), cb));
 
     // basic index file can be something like:

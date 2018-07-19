@@ -27,6 +27,10 @@ const virtualbox = require('./index');
         let vmname = argv.vmname;
         let ovf = argv.ovf;
         let verbose = argv.verbose;
+        let list = argv.list;
+        let start = argv.start;
+        let check = argv.check;
+        let provision = argv.provision;
 
         // If a dry run, enable logging
         if (argv.dryRun) {
@@ -44,7 +48,7 @@ const virtualbox = require('./index');
         // Provision
         await virtualbox(
             {
-                vmname, ovf, verbose
+                vmname, ovf, verbose, list, start, check, provision
             }
         );
 
