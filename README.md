@@ -1,6 +1,16 @@
-# VirtualBoxCtrl
+# node-virtualbox
 
-Create a new VM in VirtualBox.
+This is a simple tool that helps provision basic VirtualBox virtual machines with sane defaults.
+
+Example run:
+
+```
+node bin.js --vmname "hello" --ovf <BOX_PATH> --verbose
+```
+
+Example location of box location: ~/.vagrant.d/boxes/ubuntu-VAGRANTSLASH-xenial64/20180620.0.0/virtualbox/box.ovf
+
+Create a new VM in VirtualBox (reference bash script).
 
 ```
 ./check.sh
