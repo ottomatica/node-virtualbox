@@ -8,7 +8,7 @@ Create a new VM in VirtualBox.
 
 Ssh into instance.
 ```
-ssh -i ~/.vagrant.d/insecure_private_key -p 2002 -o StrictHostKeyChecking=no  vagrant@127.0.0.1
+ssh -i ~/.vagrant.d/insecure_private_key -p 2002 -o StrictHostKeyChecking=no IdentitiesOnly=yes vagrant@127.0.0.1
 ```
 
 
