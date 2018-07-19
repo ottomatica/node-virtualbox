@@ -15,11 +15,12 @@
     "virtualbox"
   ],
   "author": "ottomatica",
-  "license": "ISC",
+  "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/ottomatica/node-virtualbox/issues"
   },
   "homepage": "https://github.com/ottomatica/node-virtualbox#readme",
+  "bin": "bin.js",
   "dependencies": {
     "bluebird": "^3.5.1",
     "lodash": "^4.17.10",
