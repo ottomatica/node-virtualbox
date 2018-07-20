@@ -5,10 +5,8 @@ This is a simple tool that helps provision basic VirtualBox virtual machines wit
 Example run:
 
 ```
-node bin.js --provision --vmname "hello" --ovf <BOX_PATH> --ip <IP> --verbose
+node bin.js --provision --vmname "hello" --ip 172.168.0.55 --verbose
 ```
-
-Example location of box location: ~/.vagrant.d/boxes/ubuntu-VAGRANTSLASH-xenial64/20180620.0.0/virtualbox/box.ovf
 
 Create a new VM in VirtualBox (reference bash script).
 
@@ -18,7 +16,7 @@ Create a new VM in VirtualBox (reference bash script).
 
 Ssh into instance.
 ```
-ssh -i ~/.vagrant.d/insecure_private_key -p 2002 -o StrictHostKeyChecking=no IdentitiesOnly=yes vagrant@127.0.0.1
+ssh -i config/insecure_private_key -p 2002 -o StrictHostKeyChecking=no IdentitiesOnly=yes vagrant@127.0.0.1
 ```
 
 
