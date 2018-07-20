@@ -2,9 +2,11 @@
  * @module virtualbox
  */
 
-
+const path          = require('path');
+const fs            = require('fs');
 
 const download      = require('download');
+const tar           = require('tar');
 
 const util          = require('./util.js');
 const VBoxProvider  = require('./lib/VBoxProvider');
@@ -17,12 +19,25 @@ module.exports = async function (options = {}) {
         if( !options.ovf )
         {
             const boxesPath = path.join(require('os').userInfo().homedir, '.baker', 'boxes');
+            const unpackPath = path.join(boxesPath, 'ubuntu-xenial');
+
             util.mkDirByPathSync(boxesPath);
+            util.mkDirByPathSync(unpackPath);
 
             // download files if not available locally
-            if (!(await fs.pathExists(path.join(boxesPath, 'xenial-server-cloudimg-amd64-vagrant.box')))) {
+            if (!(await fs.existsSync(path.join(unpackPath, 'box.ovf')))) {
+                console.log("no --ovf specified, downloading latest ubuntu box!")
                 await download('http://cloud-images.ubuntu.com/xenial/current/xenial-server-cloudimg-amd64-vagrant.box', boxesPath);
-            }            
+                await tar.x(  // or tar.extract(
+                    {
+                      file: path.join(boxesPath, 'xenial-server-cloudimg-amd64-vagrant.box'),
+                      C: unpackPath
+                    }
+                );
+                // Remove box
+                fs.unlinkSync(path.join(boxesPath, 'xenial-server-cloudimg-amd64-vagrant.box'));
+            }
+            options.ovf = path.join(unpackPath, 'box.ovf');
         }
 
         try {
