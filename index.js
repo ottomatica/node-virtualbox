@@ -2,12 +2,29 @@
  * @module virtualbox
  */
 
-const VBoxProvider = require('./lib/VBoxProvider');
+
+
+const download      = require('download');
+
+const util          = require('./util.js');
+const VBoxProvider  = require('./lib/VBoxProvider');
 
 module.exports = async function (options = {}) {
     let provider = new VBoxProvider();
 
     if(options.provision) {
+
+        if( !options.ovf )
+        {
+            const boxesPath = path.join(require('os').userInfo().homedir, '.baker', 'boxes');
+            util.mkDirByPathSync(boxesPath);
+
+            // download files if not available locally
+            if (!(await fs.pathExists(path.join(boxesPath, 'xenial-server-cloudimg-amd64-vagrant.box')))) {
+                await download('http://cloud-images.ubuntu.com/xenial/current/xenial-server-cloudimg-amd64-vagrant.box', boxesPath);
+            }            
+        }
+
         try {
             await provider.check(options.ovf, options.vmname);
             await provider.provision(options.vmname, options.ovf, options.verbose);
