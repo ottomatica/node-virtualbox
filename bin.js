@@ -32,6 +32,7 @@ const virtualbox = require('./index');
         let start = argv.start;
         let check = argv.check;
         let deleteCmd = argv.delete;
+        let stopCmd   = argv.stop;
 
         // provision related arguments
         let provision = argv.provision;
@@ -55,7 +56,7 @@ const virtualbox = require('./index');
         // Provision
         await virtualbox(
             {
-                vmname, ovf, verbose, list, start, check, provision, ip, port, deleteCmd
+                vmname, ovf, verbose, list, start, check, provision, ip, port, deleteCmd, stopCmd
             }
         );
 

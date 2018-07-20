@@ -64,6 +64,17 @@ module.exports = async function (options = {}) {
         console.log(await provider.delete(options.vmname));
     }
 
+    if(options.stopCmd)
+    {
+        if( !options.vmname )
+        {
+            console.error("Please provide --vmname <name> with --stop");
+            process.exit(1);
+        }        
+        console.log(await provider.stop(options.vmname));
+    }
+
+
     if(options.check){
         // console.log(await provider.hostonlyifs());
 
