@@ -18,7 +18,7 @@ node bin.js --provision --vmname "hello" --ip 172.168.0.55 --verbose
 
 ssh into instance.
 ```
-ssh -i config/resources/insecure_private_key -p 2002 -o StrictHostKeyChecking=no IdentitiesOnly=yes vagrant@127.0.0.1
+ssh -i config/resources/insecure_private_key -p 2002 -o StrictHostKeyChecking=no -o IdentitiesOnly=yes vagrant@127.0.0.1
 ```
 
 ### Default setup
