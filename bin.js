@@ -31,6 +31,7 @@ const virtualbox = require('./index');
         let start = argv.start;
         let check = argv.check;
         let provision = argv.provision;
+        let ip = argv.ip;
 
         // If a dry run, enable logging
         if (argv.dryRun) {
@@ -48,7 +49,7 @@ const virtualbox = require('./index');
         // Provision
         await virtualbox(
             {
-                vmname, ovf, verbose, list, start, check, provision
+                vmname, ovf, verbose, list, start, check, provision, ip
             }
         );
 

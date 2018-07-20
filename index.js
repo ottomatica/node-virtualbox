@@ -11,9 +11,9 @@ module.exports = async function (options = {}) {
         try {
             await provider.check(options.ovf, options.vmname);
             await provider.provision(options.vmname, options.ovf, options.verbose);
-            await provider.customize(options.vmname, undefined, undefined, options.verbose);
+            await provider.customize(options.vmname, options.ip, undefined, options.verbose);
             await provider.start(options.vmname, options.verbose);
-            // await provider.postSetup('192.168.33.132', '~/.vagrant.d/insecure_private_key', options.verbose);
+            await provider.postSetup(options.ip, '~/.vagrant.d/insecure_private_key', options.verbose);
         } catch (error) {
             console.error('=> exec error:', error);
         }
@@ -39,6 +39,4 @@ module.exports = async function (options = {}) {
     // • customize() to run modifyvm stuff
     // • start() -- optionally start()
     // • post-setup() things that will require ssh.exec (setup /etc/networking/interfaces)
-
-
 };
