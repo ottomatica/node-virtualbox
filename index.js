@@ -43,9 +43,9 @@ module.exports = async function (options = {}) {
         try {
             await provider.check(options.ovf, options.vmname);
             await provider.provision(options.vmname, options.ovf, options.verbose);
-            await provider.customize(options.vmname, options.ip, undefined, options.verbose);
+            await provider.customize(options.vmname, options.ip, options.port, options.verbose);
             await provider.start(options.vmname, options.verbose);
-            await provider.postSetup(options.ip, path.join(__dirname,'config/insecure_private_key'), options.verbose);
+            await provider.postSetup(options.ip, path.join(__dirname,'config/resources/insecure_private_key'), options.verbose);
         } catch (error) {
             console.error('=> exec error:', error);
         }
@@ -53,6 +53,16 @@ module.exports = async function (options = {}) {
     
     if(options.list)
         console.log(await provider.list());
+
+    if(options.deleteCmd)
+    {
+        if( !options.vmname )
+        {
+            console.error("Please provide --vmname <name> with --delete");
+            process.exit(1);
+        }        
+        console.log(await provider.delete(options.vmname));
+    }
 
     if(options.check){
         // console.log(await provider.hostonlyifs());
