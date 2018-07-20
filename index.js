@@ -23,7 +23,7 @@ module.exports = async function (options = {}) {
         console.log(await provider.list());
 
     if(options.check)
-        console.log(await provider.postSetup());
+        console.log(await provider.hostonlyifs());
 
     if(options.start)
         await provider.start(options.vmname, options.verbose);
