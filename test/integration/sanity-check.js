@@ -16,7 +16,7 @@ describe('node-virtualbox should create pingable vm, and stop and destroy it', f
             expect(error).to.be.null;
 
             let output = child_process.execSync(`ping 172.16.0.44 -c 5`).toString();
-
+            console.log(output);
             expect(output).to.include('time=');
 
             done();
