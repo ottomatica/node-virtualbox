@@ -22,8 +22,12 @@ module.exports = async function (options = {}) {
     if(options.list)
         console.log(await provider.list());
 
-    if(options.check)
-        console.log(await provider.hostonlyifs());
+    if(options.check){
+        // console.log(await provider.hostonlyifs());
+
+        // returns [] if it doesn't find adapter with this ip, otherwise a json object
+        console.log((await provider.hostonlyifs()).filter(e => e.IPAddress === '192.168.56.1')); 
+    }
 
     if(options.start)
         await provider.start(options.vmname, options.verbose);
