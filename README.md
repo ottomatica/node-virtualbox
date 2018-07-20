@@ -5,7 +5,7 @@ This is a simple tool that helps provision basic VirtualBox virtual machines wit
 Example run:
 
 ```
-node bin.js --provision --vmname "hello" --ovf <BOX_PATH> --verbose
+node bin.js --provision --vmname "hello" --ovf <BOX_PATH> --ip <IP> --verbose
 ```
 
 Example location of box location: ~/.vagrant.d/boxes/ubuntu-VAGRANTSLASH-xenial64/20180620.0.0/virtualbox/box.ovf
