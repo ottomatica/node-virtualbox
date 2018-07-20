@@ -45,7 +45,7 @@ module.exports = async function (options = {}) {
             await provider.provision(options.vmname, options.ovf, options.verbose);
             await provider.customize(options.vmname, options.ip, options.port, options.verbose);
             await provider.start(options.vmname, options.verbose);
-            await provider.postSetup(options.ip, path.join(__dirname,'config/resources/insecure_private_key'), options.verbose);
+            await provider.postSetup(options.ip, options.port, path.join(__dirname,'config/resources/insecure_private_key'), options.verbose);
         } catch (error) {
             console.error('=> exec error:', error);
         }
