@@ -8,7 +8,7 @@ const fs            = require('fs');
 const download      = require('download');
 const tar           = require('tar');
 
-const util          = require('./util.js');
+const util          = require('./lib/util');
 const VBoxProvider  = require('./lib/VBoxProvider');
 
 module.exports = async function (options = {}) {
@@ -45,7 +45,7 @@ module.exports = async function (options = {}) {
             await provider.provision(options.vmname, options.ovf, options.verbose);
             await provider.customize(options.vmname, options.ip, undefined, options.verbose);
             await provider.start(options.vmname, options.verbose);
-            await provider.postSetup(options.ip, '~/.vagrant.d/insecure_private_key', options.verbose);
+            await provider.postSetup(options.ip, path.join(__dirname,'config/insecure_private_key'), options.verbose);
         } catch (error) {
             console.error('=> exec error:', error);
         }
