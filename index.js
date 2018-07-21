@@ -41,7 +41,7 @@ module.exports = async function (options = {}) {
         }
 
         try {
-            await provider.check(options.ovf, options.vmname);
+            await provider.check(options);
             await provider.provision(options.vmname, options.ovf, options.verbose);
             await provider.customize(options.vmname, options.ip, options.port, options.syncs, options.verbose);
             await provider.start(options.vmname, options.verbose);
