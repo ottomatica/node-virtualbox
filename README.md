@@ -45,6 +45,17 @@ node bin.js --stop --vmname <name>
 node bin.js --delete --vmname <name>
 ```
 
+`--info` Provide information about a vm. This will print out a json string with properties of the specified vm. 
+
+For example, running `node .\bin.js --info --vmname "vm3"` will print the following, which can be used to retrieve properties such as the port that can be used for ssh access:
+
+```
+{ name: '"vm3"',
+...
+'Forwarding(0)': '"guestssh,tcp,,2002,,22"',
+}
+```
+
 ### Provision options
 
 `--ovf` Set the box to import when creating vm. If this is omitted, the latest ubuntu-xenial image is downloaded and used.
