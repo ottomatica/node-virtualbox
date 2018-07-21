@@ -24,7 +24,7 @@ describe('node-virtualbox should create vm with shared folder, and stop and dest
         let cmd = `ls /testShare`;
         let sshKeyPath = path.join('config','resources','insecure_private_key');
         let buffer = await util.sshExec(cmd, {port: 2097, user: 'vagrant', private_key: sshKeyPath}, 60000);
-        expect(buffer).to.include('shared_folders.js');
+        expect(buffer).to.include('shared-folders.js');
     });
 
     it('should stop vm', function(done) {
