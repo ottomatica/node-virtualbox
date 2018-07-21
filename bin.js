@@ -38,7 +38,7 @@ const virtualbox = require('./index');
         let provision = argv.provision;
         let ovf = argv.ovf;
         let ip = argv.ip;
-        let port = argv.port || 2002;
+        let port = argv.port;
         let syncs = [];
         if( argv.sync)
         {

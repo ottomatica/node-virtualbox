@@ -40,6 +40,11 @@ module.exports = async function (options = {}) {
             options.ovf = path.join(unpackPath, 'box.ovf');
         }
 
+        if( !options.port )
+        {
+            options.port = await util.findAvailablePort(options.verbose);
+        }
+
         try {
             await provider.check(options);
             await provider.provision(options.vmname, options.ovf, options.verbose);
