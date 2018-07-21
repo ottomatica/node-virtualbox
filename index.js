@@ -79,6 +79,15 @@ module.exports = async function (options = {}) {
         console.log(await provider.stop(options.vmname));
     }
 
+    if(options.infoCmd){
+
+        if( !options.vmname )
+        {
+            console.error("Please provide --vmname <name> with --info");
+            process.exit(1);
+        }
+        console.log(await provider.info(options.vmname)); 
+    }
 
     if(options.check){
         // console.log(await provider.hostonlyifs());
