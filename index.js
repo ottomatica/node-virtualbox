@@ -42,7 +42,7 @@ module.exports = async function (options = {}) {
 
         if( !options.port )
         {
-            options.port = await util.findAvailablePort(options.verbose);
+            options.port = await util.findAvailablePort(provider,options.verbose);
         }
 
         try {
