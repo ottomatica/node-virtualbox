@@ -39,24 +39,20 @@ const virtualbox = require('./index');
         let ovf = argv.ovf;
         let ip = argv.ip;
         let port = argv.port || 2002;
+        let syncs = [];
+        if( argv.sync)
+        {
+            syncs = _.isArray(argv.sync) ? argv.sync : [ argv.sync ];
+        }
 
         // If a dry run, enable logging
         if (argv.dryRun) {
         }
 
-        // Get command
-        // let cmd;
-        // if (argv.cmd) {
-        //     cmd = _.omitBy({
-        //         command: argv.cmd,
-        //         args: _.isArray(argv.arg) ? argv.arg : [ argv.arg ]
-        //     }, _.isUndefined);
-        // }
-
         // Provision
         await virtualbox(
             {
-                vmname, ovf, verbose, list, start, check, provision, ip, port, deleteCmd, stopCmd
+                vmname, ovf, verbose, list, start, check, provision, ip, port, deleteCmd, stopCmd, syncs
             }
         );
 
