@@ -51,3 +51,8 @@ node bin.js --delete --vmname <name>
 
 `--port` Set the local port used to forward ssh connections to vm.
 
+`--sync` Set a shared folder. Format: `"<host_folder>;<guest_folder>"`. You can provide multiple of these options.
+
+```
+node bin.js --provision --vmname "shared_folders_vm" --ip 172.16.1.45 --port 2095 --verbose --sync "C:\Users\chris;/chris" --sync "C:\Users\chris\projects;/projects"
+```
