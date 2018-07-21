@@ -9,13 +9,14 @@ describe('node-virtualbox should create pingable vm, and stop and destroy it', f
     this.timeout(2000000);
     it('should create pingable vm', function(done) {
         // echo value for prompt input for password.
-        var child = child_process.exec(`node bin.js --provision --vmname "sanity-check-vm" --ip 172.16.0.44 --port 2092`, 
+        var child = child_process.exec(`node bin.js --provision --vmname "sanity-check-vm" --ip 172.16.1.44 --port 2092 --verbose`, 
                                        {}, function(error, stdout, stderr) 
         {
             if( error ) console.log(stderr || stdout);
             expect(error).to.be.null;
 
-            let output = child_process.execSync(`ping 172.16.0.44 -c 5`).toString();
+            let cmd = process.platform === 'win32' ? `ping 172.16.1.44 -n 5` : `ping 172.16.1.44 -c 5`
+            let output = child_process.execSync(cmd).toString();
             console.log(output);
             expect(output).to.include('time=');
 
