@@ -14,6 +14,26 @@ const VBoxProvider  = require('./lib/VBoxProvider');
 module.exports = async function (options = {}) {
     let provider = new VBoxProvider();
 
+    if( !options.port && (options.provision || options.micro) )
+    {
+        options.port = await util.findAvailablePort(provider, options.verbose);
+    }
+
+    if(options.micro) {
+        try {
+            let iso = 'https://github.com/ottomatica/baker-release/releases/download/0.6.0/alpine.iso';
+            const boxesPath = path.join(require('os').userInfo().homedir, '.baker', 'boxes');
+            const isoPath = options.attach_iso || path.join(boxesPath, 'alpine.iso');
+            if (!(await fs.existsSync(path.join(boxesPath, 'alpine.iso')))) {
+                await download(iso, boxesPath);
+            }
+    
+            provider.micro(options.vmname, isoPath, options.port, options.verbose);
+       } catch (error) {
+            console.error('=> exec error:', error);
+        }
+    }
+
     if(options.provision) {
 
         if( !options.ovf )
@@ -38,11 +58,6 @@ module.exports = async function (options = {}) {
                 fs.unlinkSync(path.join(boxesPath, 'xenial-server-cloudimg-amd64-vagrant.box'));
             }
             options.ovf = path.join(unpackPath, 'box.ovf');
-        }
-
-        if( !options.port )
-        {
-            options.port = await util.findAvailablePort(provider,options.verbose);
         }
 
         try {

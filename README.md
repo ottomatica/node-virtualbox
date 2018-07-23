@@ -12,7 +12,7 @@ npm install node-virtualbox [--save] [-g]
 
 Example run:
 
-```
+``` bash
 node bin.js --provision --vmname "hello" --ip 172.168.0.55 --verbose
 ```
 
@@ -67,3 +67,13 @@ For example, running `node .\bin.js --info --vmname "vm3"` will print the follow
 ```
 node bin.js --provision --vmname "shared_folders_vm" --ip 172.16.1.45 --port 2095 --verbose --sync "C:\Users\chris;/chris" --sync "C:\Users\chris\projects;/projects"
 ```
+
+### Micro VM
+This is for booting micro kernels (custom initramfs inside of an iso)
+
+Example micro VMs (iso):
+``` bash
+node bin.js --micro --vmname "micro" --attach_iso <Path>
+```
+
+If you don't specify path to an iso it will download and use an Alpine linux iso.
