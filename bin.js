@@ -38,6 +38,7 @@ const virtualbox = require('./index');
         // provision related arguments
         let provision = argv.provision;
         let ovf = argv.ovf;
+        let attach_iso = argv.attach_iso;
         let ip = argv.ip;
         let port = argv.port;
         let syncs = [];
@@ -53,7 +54,7 @@ const virtualbox = require('./index');
         // Provision
         await virtualbox(
             {
-                vmname, ovf, verbose, list, start, check, provision, ip, port, deleteCmd, stopCmd, infoCmd, syncs
+                vmname, ovf, verbose, list, start, check, provision, ip, port, deleteCmd, stopCmd, infoCmd, syncs, attach_iso
             }
         );
 

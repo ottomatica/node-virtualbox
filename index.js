@@ -47,7 +47,7 @@ module.exports = async function (options = {}) {
 
         try {
             await provider.check(options);
-            await provider.provision(options.vmname, options.ovf, options.verbose);
+            await provider.provision(options.vmname, options.ovf, options.attach_iso, options.verbose);
             await provider.customize(options.vmname, options.ip, options.port, options.syncs, options.verbose);
             await provider.start(options.vmname, options.verbose);
             await provider.postSetup(options.vmname, options.ip, options.port, path.join(__dirname,'config/resources/insecure_private_key'), options.syncs, options.verbose);
