@@ -59,9 +59,13 @@ For example, running `node .\bin.js --info --vmname "vm3"` will print the follow
 ### Provision options
 
 `--cpus` Set the number of cpus for VM. Default is 2 (or 1 for micro).
+
 `--mem` Set the size of ram in MB(e.g., 512 or 1024). Default is 1024 (or 512 for micro).
+
 `--ovf` Set the box to import when creating vm. If this is omitted, the latest ubuntu-xenial image is downloaded and used.
+
 `--port` Set the local port used to forward ssh connections to vm. If this is omitted, then a freely available port between 2002 and 2999 is automatically assigned.
+
 `--sync` Set a shared folder. Format: `"<host_folder>;<guest_folder>"`. You can provide multiple of these options.
 
 ```
