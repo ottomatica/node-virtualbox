@@ -64,12 +64,15 @@ For example, running `node .\bin.js --info --vmname "vm3"` will print the follow
 
 `--ovf` Set the box to import when creating vm. If this is omitted, the latest ubuntu-xenial image is downloaded and used.
 
-`--port` Set the local port used to forward ssh connections to vm. If this is omitted, then a freely available port between 2002 and 2999 is automatically assigned.
+`--ssh_port` Set the local port used to forward ssh connections to vm. If this is omitted, then a freely available port between 2002 and 2999 is automatically assigned.
+
+`--forward_ports` Set the port forwarding rules. Format: `"<guest_port>:<host_port>"` or `"<port>"`. `"<port>"` translates to `"<port>:<port>"`.
 
 `--sync` Set a shared folder. Format: `"<host_folder>;<guest_folder>"`. You can provide multiple of these options.
 
+`--add_ssh_key` Add public ssh key to ~/.ssh/authorized_keys of the vm.
 ```
-node bin.js --provision --vmname "shared_folders_vm" --ip 172.16.1.45 --port 2095 --verbose --sync "C:\Users\chris;/chris" --sync "C:\Users\chris\projects;/projects"
+node bin.js --provision --vmname "shared_folders_vm" --ip 172.16.1.45 --ssh_port 2095 --verbose --sync "C:\Users\chris;/chris" --sync "C:\Users\chris\projects;/projects" --add_ssh_key ~/.ssh/id_rsa.pub
 ```
 
 ### Micro VM
