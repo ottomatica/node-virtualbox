@@ -42,6 +42,8 @@ const virtualbox = require('./index');
         let micro = argv.micro;
         let ip = argv.ip;
         let port = argv.port;
+        let cpus = argv.cpus;
+        let mem  = argv.mem;
         let syncs = [];
         if( argv.sync)
         {
@@ -55,7 +57,8 @@ const virtualbox = require('./index');
         // Provision
         await virtualbox(
             {
-                vmname, ovf, verbose, list, start, check, provision, ip, port, deleteCmd, stopCmd, infoCmd, syncs, attach_iso, micro
+                vmname, ovf, verbose, list, start, check, provision, ip, port, deleteCmd, stopCmd, infoCmd, syncs, attach_iso, micro,
+                mem, cpus
             }
         );
 

@@ -19,6 +19,16 @@ module.exports = async function (options = {}) {
         options.port = await util.findAvailablePort(provider, options.verbose);
     }
 
+    if( !options.cpus && (options.provision || options.micro) )
+    {
+        options.cpus = options.provision ? 2: 1;
+    }
+
+    if( !options.mem && (options.provision || options.micro) )
+    {
+        options.mem = options.provision ? 1024: 512;
+    }
+
     if(options.micro) {
         try {
             let iso = 'https://github.com/ottomatica/baker-release/releases/download/0.6.0/alpine.iso';
@@ -28,7 +38,7 @@ module.exports = async function (options = {}) {
                 await download(iso, boxesPath);
             }
     
-            provider.micro(options.vmname, isoPath, options.port, options.verbose);
+            provider.micro(options.vmname, options.cpus, options.mem, isoPath, options.port, options.verbose);
        } catch (error) {
             console.error('=> exec error:', error);
         }
@@ -62,7 +72,7 @@ module.exports = async function (options = {}) {
 
         try {
             await provider.check(options);
-            await provider.provision(options.vmname, options.ovf, options.attach_iso, options.verbose);
+            await provider.provision(options.vmname, options.cpus, options.mem, options.ovf, options.attach_iso, options.verbose);
             await provider.customize(options.vmname, options.ip, options.port, options.syncs, options.verbose);
             await provider.start(options.vmname, options.verbose);
             await provider.postSetup(options.vmname, options.ip, options.port, path.join(__dirname,'config/resources/insecure_private_key'), options.syncs, options.verbose);
