@@ -14,9 +14,9 @@ const VBoxProvider  = require('./lib/VBoxProvider');
 module.exports = async function (options = {}) {
     let provider = new VBoxProvider();
 
-    if( !options.port && (options.provision || options.micro) )
+    if( !options.ssh_port && (options.provision || options.micro) )
     {
-        options.port = await util.findAvailablePort(provider, options.verbose);
+        options.ssh_port = await util.findAvailablePort(provider, options.verbose);
     }
 
     if( !options.cpus && (options.provision || options.micro) )
@@ -38,7 +38,7 @@ module.exports = async function (options = {}) {
                 await download(iso, boxesPath);
             }
     
-            provider.micro(options.vmname, options.cpus, options.mem, isoPath, options.port, options.verbose);
+            provider.micro(options.vmname, options.cpus, options.mem, isoPath, options.ssh_port, options.verbose);
        } catch (error) {
             console.error('=> exec error:', error);
         }
@@ -73,9 +73,9 @@ module.exports = async function (options = {}) {
         try {
             await provider.check(options);
             await provider.provision(options.vmname, options.cpus, options.mem, options.ovf, options.attach_iso, options.verbose);
-            await provider.customize(options.vmname, options.ip, options.port, options.syncs, options.verbose);
+            await provider.customize(options.vmname, options.ip, options.ssh_port, options.forward_ports, options.syncs, options.verbose);
             await provider.start(options.vmname, options.verbose);
-            await provider.postSetup(options.vmname, options.ip, options.port, path.join(__dirname,'config/resources/insecure_private_key'), options.add_ssh_key, options.syncs, options.verbose);
+            await provider.postSetup(options.vmname, options.ip, options.ssh_port, path.join(__dirname,'config/resources/insecure_private_key'), options.add_ssh_key, options.syncs, options.verbose);
         } catch (error) {
             console.error('=> exec error:', error);
         }

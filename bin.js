@@ -41,7 +41,8 @@ const virtualbox = require('./index');
         let attach_iso = argv.attach_iso;
         let micro = argv.micro;
         let ip = argv.ip;
-        let port = argv.port;
+        let ssh_port = argv.ssh_port;
+        let forward_ports = argv.forward_ports;
         let cpus = argv.cpus;
         let mem  = argv.mem;
         let add_ssh_key = argv.add_ssh_key;
@@ -55,11 +56,11 @@ const virtualbox = require('./index');
         if (argv.dryRun) {
         }
 
-        // Provision
+        // Provision 
         await virtualbox(
             {
-                vmname, ovf, verbose, list, start, check, provision, ip, port, deleteCmd, stopCmd, infoCmd, syncs, attach_iso, micro,
-                mem, cpus, add_ssh_key
+                vmname, ovf, verbose, list, start, check, provision, ip, ssh_port, deleteCmd, stopCmd, infoCmd, syncs, attach_iso, micro,
+                mem, cpus, add_ssh_key, forward_ports
             }
         );
 
