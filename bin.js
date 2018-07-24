@@ -44,6 +44,7 @@ const virtualbox = require('./index');
         let port = argv.port;
         let cpus = argv.cpus;
         let mem  = argv.mem;
+        let add_ssh_key = argv.add_ssh_key;
         let syncs = [];
         if( argv.sync)
         {
@@ -58,7 +59,7 @@ const virtualbox = require('./index');
         await virtualbox(
             {
                 vmname, ovf, verbose, list, start, check, provision, ip, port, deleteCmd, stopCmd, infoCmd, syncs, attach_iso, micro,
-                mem, cpus
+                mem, cpus, add_ssh_key
             }
         );
 
