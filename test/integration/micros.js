@@ -1,15 +1,16 @@
 const child_process = require('child_process');
+const os   = require('os');
 const chai = require('chai');
 const expect = chai.expect;
 const path = require('path');
 
 const util = require('../../lib/util');
 
-describe('node-virtualbox should create vm with shared folder, and stop and destroy it', function() {
+describe('node-virtualbox should create micro vm with shared folder, and stop and destroy it', function() {
     this.timeout(2000000);
-    it('should create vm', function(done) {
-        let testSharedPath = __dirname;
-        var child = child_process.exec(`node bin.js --provision --vmname "shared-folders-vm" --ip 172.16.1.47 --ssh_port 2097 --verbose --sync "${testSharedPath};/testShare"`, 
+    it('should create micro vm', function(done) {
+        let testSharedPath = path.join(os.homedir(),'.baker');
+        var child = child_process.exec(`node bin.js --micro --vmname "micro-vm" --ssh_port 2050 --verbose --sync "${testSharedPath};/data"`, 
                                        {}, function(error, stdout, stderr) 
         {
             if( error ) console.log(stderr || stdout);
@@ -19,17 +20,17 @@ describe('node-virtualbox should create vm with shared folder, and stop and dest
         child.stdout.pipe(process.stdout);
     });
 
-    it('should have shared folder in vm', async function() 
+    it('should have shared folder in micro vm', async function() 
     {
-        let cmd = `ls /testShare`;
-        let sshKeyPath = path.join('config','resources','insecure_private_key');
-        let buffer = await util.sshExec(cmd, {port: 2097, user: 'vagrant', private_key: sshKeyPath}, 60000);
-        expect(buffer).to.include('shared-folders.js');
+        let cmd = `ls /data`;
+        let sshKeyPath = path.join('config','resources','baker_rsa');
+        let buffer = await util.sshExec(cmd, {port: 2050, user: 'root', private_key: sshKeyPath}, 60000);
+        expect(buffer).to.include('boxes');
     });
 
-    it('should stop vm', function(done) {
+    it('should stop micro vm', function(done) {
         // echo value for prompt input for password.
-        var child = child_process.exec(`node bin.js --stop --vmname "shared-folders-vm"`, 
+        var child = child_process.exec(`node bin.js --stop --vmname "micro-vm"`, 
                                        {}, function(error, stdout, stderr) 
         {
             if( error ) console.log(stderr || stdout);
@@ -40,9 +41,9 @@ describe('node-virtualbox should create vm with shared folder, and stop and dest
         child.stdout.pipe(process.stdout);
     });
 
-    it('should destroy vm', function(done) {
+    it('should destroy micro vm', function(done) {
         // echo value for prompt input for password.
-        var child = child_process.exec(`node bin.js --delete --vmname "shared-folders-vm"`, 
+        var child = child_process.exec(`node bin.js --delete --vmname "micro-vm"`, 
                                        {}, function(error, stdout, stderr) 
         {
             if( error ) console.log(stderr || stdout);
