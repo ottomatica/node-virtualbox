@@ -6,11 +6,11 @@ const path = require('path');
 
 const util = require('../../lib/util');
 
-describe('node-virtualbox should create micro vm with shared folder, and stop and destroy it', function() {
+describe('node-virtualbox should create micro vm with disk and shared folder, and stop and destroy it', function() {
     this.timeout(2000000);
     it('should create micro vm', function(done) {
         let testSharedPath = path.join(os.homedir(),'.baker');
-        var child = child_process.exec(`node bin.js --micro --vmname "micro-vm" --ssh_port 2050 --verbose --sync "${testSharedPath};/data"`, 
+        var child = child_process.exec(`node bin.js --micro --vmname "micro-vm" --ssh_port 2050 --verbose --disk --sync "${testSharedPath};/data"`, 
                                        {}, function(error, stdout, stderr) 
         {
             if( error ) console.log(stderr || stdout);

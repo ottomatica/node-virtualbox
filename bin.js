@@ -40,6 +40,7 @@ const virtualbox = require('./index');
         let ovf = argv.ovf;
         let attach_iso = argv.attach_iso;
         let micro = argv.micro;
+        let disk = argv.disk;
         let ip = argv.ip;
         let ssh_port = argv.ssh_port;
         let forward_ports = argv.forward_ports;
@@ -60,7 +61,7 @@ const virtualbox = require('./index');
         await virtualbox(
             {
                 vmname, ovf, verbose, list, start, check, provision, ip, ssh_port, deleteCmd, stopCmd, infoCmd, syncs, attach_iso, micro,
-                mem, cpus, add_ssh_key, forward_ports
+                mem, cpus, add_ssh_key, forward_ports, disk
             }
         );
 
