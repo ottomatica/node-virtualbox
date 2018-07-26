@@ -38,7 +38,7 @@ module.exports = async function (options = {}) {
                 await download(iso, boxesPath);
             }
     
-            provider.micro(options.vmname, options.cpus, options.mem, isoPath, options.ssh_port, options.verbose);
+            provider.micro(options.vmname, options.cpus, options.mem, isoPath, options.ssh_port, options.syncs, options.verbose);
        } catch (error) {
             console.error('=> exec error:', error);
         }
@@ -114,21 +114,6 @@ module.exports = async function (options = {}) {
         console.log(await provider.info(options.vmname)); 
     }
 
-    if(options.check){
-        // console.log(await provider.hostonlyifs());
-
-        // returns [] if it doesn't find adapter with this ip, otherwise a json object
-        console.log((await provider.hostonlyifs()).filter(e => e.IPAddress === '192.168.56.1')); 
-    }
-
     if(options.start)
         await provider.start(options.vmname, options.verbose);
-    //return Bluebird.fromCallback(cb => generator.generate(JSON.stringify(data), cb));
-
-    // basic index file can be something like:
-    // • check() to verify whether things like vmname already is running/or box exists
-    // • provision() to start vm
-    // • customize() to run modifyvm stuff
-    // • start() -- optionally start()
-    // • post-setup() things that will require ssh.exec (setup /etc/networking/interfaces)
 };
