@@ -38,7 +38,7 @@ module.exports = async function (options = {}) {
                 await download(iso, boxesPath);
             }
     
-            await provider.micro(options.vmname, options.cpus, options.mem, isoPath, options.ssh_port, options.syncs, options.disk, options.verbose);
+            provider.micro(options.vmname, options.cpus, options.mem, isoPath, options.ssh_port, path.join(__dirname,'config/resources/baker_rsa'), options.syncs, options.disk, options.verbose);
        } catch (error) {
             console.error('=> exec error:', error);
         }
