@@ -31,7 +31,7 @@ module.exports = async function (options = {}) {
 
     if(options.micro) {
         try {
-            let iso = 'https://github.com/ottomatica/baker-release/releases/download/0.6.0/alpine.iso';
+            let iso = 'https://github.com/ottomatica/baker-release/releases/download/0.6.1/alpine.iso';
             const boxesPath = path.join(require('os').userInfo().homedir, '.baker', 'boxes');
             const isoPath = options.attach_iso || path.join(boxesPath, 'alpine.iso');
             if (!(await fs.existsSync(path.join(boxesPath, 'alpine.iso')))) {
