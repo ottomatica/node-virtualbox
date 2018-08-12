@@ -116,4 +116,15 @@ module.exports = async function (options = {}) {
 
     if(options.start)
         await provider.start(options.vmname, options.verbose);
+
+    if(options.exposePort )
+    {
+        if( !options.vmname )
+        {
+            console.error("Please provide --vmname <name> with --exposePort");
+            process.exit(1);
+        }
+
+        console.log(await provider.expose(options.vmname, options.exposePort, options.verbose));
+    }
 };

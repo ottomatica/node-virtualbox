@@ -20,7 +20,7 @@ const virtualbox = require('./index');
         let argv = yargs.boolean('dry-run').boolean('verbose').argv;
         let args = argv._;
         if (args.length > 1) {
-            throw new Error('Usage: virtualbox [--vmname=] [--verbose] [--dry-run]');
+            throw new Error('Usage: virtualbox [--vmname=] [--verbose] ...');
         }
 
         // common options
@@ -53,6 +53,9 @@ const virtualbox = require('./index');
             syncs = _.isArray(argv.sync) ? argv.sync : [ argv.sync ];
         }
 
+        // Update running vm arguments
+        let exposePort = argv.exposePort;
+
         // If a dry run, enable logging
         if (argv.dryRun) {
         }
@@ -61,7 +64,7 @@ const virtualbox = require('./index');
         await virtualbox(
             {
                 vmname, ovf, verbose, list, start, check, provision, ip, ssh_port, deleteCmd, stopCmd, infoCmd, syncs, attach_iso, micro,
-                mem, cpus, add_ssh_key, forward_ports, disk
+                mem, cpus, add_ssh_key, forward_ports, disk, exposePort
             }
         );
 
