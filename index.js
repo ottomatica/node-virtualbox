@@ -7,6 +7,7 @@ const fs            = require('fs');
 
 const download      = require('download');
 const tar           = require('tar');
+const md5File       = require('md5-file/promise')
 
 const util          = require('./lib/util');
 const VBoxProvider  = require('./lib/VBoxProvider');
@@ -31,10 +32,10 @@ module.exports = async function (options = {}) {
 
     if(options.micro) {
         try {
-            let iso = 'https://github.com/ottomatica/baker-release/releases/download/0.6.1/alpine.iso';
+            let iso = 'https://github.com/ottomatica/baker-release/releases/download/latest-dev/alpine.iso';
             const boxesPath = path.join(require('os').userInfo().homedir, '.baker', 'boxes');
             const isoPath = options.attach_iso || path.join(boxesPath, 'alpine.iso');
-            if (!(await fs.existsSync(path.join(boxesPath, 'alpine.iso')))) {
+            if (!(await fs.existsSync(isoPath)) || (await md5File(isoPath)) != '851e2b2b34e31b67aa0758d25666e8e5') {
                 await download(iso, boxesPath);
             }
     
