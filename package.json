@@ -1,6 +1,6 @@
 {
   "name": "node-virtualbox",
-  "version": "0.1.30",
+  "version": "0.1.31",
   "description": "A lightweight tool/module for provisioning VirtualBox virtual machines.",
   "main": "index.js",
   "scripts": {
