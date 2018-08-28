@@ -8,6 +8,7 @@ const fs            = require('fs');
 const download      = require('download');
 const tar           = require('tar');
 const md5File       = require('md5-file/promise')
+const ProgressBar = require('progress');
 
 const util          = require('./lib/util');
 const VBoxProvider  = require('./lib/VBoxProvider');
@@ -57,8 +58,21 @@ module.exports = async function (options = {}) {
 
             // download files if not available locally
             if (!(await fs.existsSync(path.join(unpackPath, 'box.ovf')))) {
-                console.log("no --ovf specified, downloading latest ubuntu box!")
-                await download('http://cloud-images.ubuntu.com/xenial/current/xenial-server-cloudimg-amd64-vagrant.box', boxesPath);
+                console.log("no --ovf specified, downloading latest ubuntu box!");
+                const bar = new ProgressBar('[:bar] :percent :etas', {
+                    complete: '=',
+                    incomplete: ' ',
+                    width: 20,
+                    total: 0
+                });
+
+                await download('http://cloud-images.ubuntu.com/xenial/current/xenial-server-cloudimg-amd64-vagrant.box', boxesPath)
+                      .on('response', res => {
+                        // console.log(`Size: ${res.headers['content-length']}`);
+                        bar.total = res.headers['content-length'];
+                        res.on('data', data => bar.tick(data.length));
+                      })
+                      .then(() => console.log('downloaded!'));
                 await tar.x(  // or tar.extract(
                     {
                       file: path.join(boxesPath, 'xenial-server-cloudimg-amd64-vagrant.box'),

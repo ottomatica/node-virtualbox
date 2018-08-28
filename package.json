@@ -1,6 +1,6 @@
 {
   "name": "node-virtualbox",
-  "version": "0.1.27",
+  "version": "0.1.28",
   "description": "A lightweight tool/module for provisioning VirtualBox virtual machines.",
   "main": "index.js",
   "scripts": {
@@ -30,6 +30,7 @@
     "lodash": "^4.17.10",
     "md5-file": "^4.0.0",
     "mustache": "^2.3.1",
+    "progress": "^2.0.0",
     "scp2": "^0.5.0",
     "ssh2": "^0.6.1",
     "tar": "^4.4.6",
