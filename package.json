@@ -4,7 +4,8 @@
   "description": "A lightweight tool/module for provisioning VirtualBox virtual machines.",
   "main": "index.js",
   "scripts": {
-    "test": "mocha test/integration/*.js"
+    "test": "mocha test/integration/*.js",
+    "release": "standard-version"
   },
   "repository": {
     "type": "git",
@@ -38,6 +39,7 @@
   },
   "devDependencies": {
     "chai": "^4.1.2",
-    "mocha": "^5.2.0"
+    "mocha": "^5.2.0",
+    "standard-version": "^4.4.0"
   }
 }
