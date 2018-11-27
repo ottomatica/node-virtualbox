@@ -1,4 +1,4 @@
-# node-virtualbox
+# node-virtualbox | [![dependencies Status](https://david-dm.org/ottomatica/node-virtualbox/status.svg)](https://david-dm.org/ottomatica/node-virtualbox)
 
 This is a simple tool that helps provision basic VirtualBox virtual machines with sane defaults.
 
