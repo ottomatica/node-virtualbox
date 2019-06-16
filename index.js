@@ -33,17 +33,9 @@ module.exports = async function (options = {}) {
 
     if(options.micro) {
         try {
-            let iso = 'https://github.com/ottomatica/baker-release/releases/download/latest-dev/alpine.iso';
-            const boxesPath = path.join(require('os').userInfo().homedir, '.baker', 'boxes');
-            const isoPath = options.attach_iso || path.join(boxesPath, 'alpine.iso');
-            if (!(await fs.existsSync(isoPath)) || (await md5File(isoPath)) != '851e2b2b34e31b67aa0758d25666e8e5') {
-                await download(iso, boxesPath);
-            }
-    
             options.quickBoot = options.quickBoot || false;
-
-            await provider.micro(options.vmname, options.cpus, options.mem, isoPath, options.ssh_port, path.join(__dirname,'config/resources/baker_rsa'), options.syncs, options.disk, options.verbose, options.quickBoot);
-       } catch (error) {
+            await provider.micro(options.vmname, options.cpus, options.mem, options.attach_iso, options.ssh_port, path.join(__dirname,'config/resources/baker_rsa'), options.syncs, options.disk, options.verbose, options.quickBoot);
+        } catch (error) {
             console.error('=> exec error:', error);
         }
     }
