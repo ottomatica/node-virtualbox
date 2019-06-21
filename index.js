@@ -34,7 +34,7 @@ module.exports = async function (options = {}) {
     if(options.micro) {
         try {
             options.quickBoot = options.quickBoot || false;
-            await provider.micro(options.vmname, options.cpus, options.mem, options.attach_iso, options.ssh_port, path.join(__dirname,'config/resources/baker_rsa'), options.syncs, options.disk, options.verbose, options.quickBoot);
+            await provider.micro(options.vmname, options.cpus, options.mem, options.attach_iso, options.ssh_port, path.join(__dirname,'config/resources/baker_rsa'), options.syncs, options.disk, options.verbose, options.quickBoot, options.bridged);
         } catch (error) {
             console.error('=> exec error:', error);
         }
