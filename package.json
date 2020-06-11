@@ -24,7 +24,7 @@
   "bin": "bin.js",
   "dependencies": {
     "bluebird": "^3.5.1",
-    "download": "^7.1.0",
+    "download": "^8.0.0",
     "fs-extra": "^9.0.1",
     "ip": "^1.1.5",
     "is-port-available": "^0.1.5",
